@@ -1,4 +1,4 @@
-# minify.zig - HTML/CSS/JS/SVG Minifier
+# `minify.zig` - HTML/CSS/JS/SVG Minifier
 
 Minifier for web output: HTML, CSS, JavaScript, and SVG.  **For use in Zig lang projects.**
 
@@ -11,7 +11,7 @@ Minifier for web output: HTML, CSS, JavaScript, and SVG.  **For use in Zig lang 
 ```
 .dependencies = .{
     .@"minify.zig" = .{
-        .url = "https://github.com/braksator/minify.zig/archive/<?????????>.tar.gz",
+        .url = "https://github.com/braksator/minify.zig/archive/refs/tags/v0.1.0.tar.gz",
         .hash = "0x6b92d368b8277922",
     },
 },
