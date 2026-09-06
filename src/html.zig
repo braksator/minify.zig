@@ -24,7 +24,7 @@ fn htmlIsNameChar(c: u8) bool {
 
 const HtmlBuf = std.ArrayList(u8);
 
-const htmlRawTextTags = [_][]const u8{ "script", "style", "textarea", "pre" };
+const htmlRawTextTags = [_][]const u8{ "script", "style", "textarea" };
 
 fn htmlRawTextTag(name: []const u8) ?[]const u8 {
     for (htmlRawTextTags) |t| {
@@ -70,6 +70,7 @@ pub fn html(allocator: std.mem.Allocator, input: []const u8, args: ?[]const u8) 
     var i: usize = 0;
     const n = input.len;
     var lastTagWasOpen = false;
+    var preDepth: usize = 0;
 
     while (i < n) {
         const c = input[i];
@@ -117,6 +118,14 @@ pub fn html(allocator: std.mem.Allocator, input: []const u8, args: ?[]const u8) 
             i = tag.tagEnd;
             lastTagWasOpen = !tag.isClose;
 
+            if (std.ascii.eqlIgnoreCase(tag.tagName, "pre") and !tag.isSelfClose) {
+                if (tag.isClose) {
+                    if (preDepth > 0) preDepth -= 1;
+                } else {
+                    preDepth += 1;
+                }
+            }
+
             if (!tag.isClose) {
                 if (htmlRawTextTag(tag.tagName)) |raw| {
                     const closePos = htmlFindCloseTagCI(input, i, raw);
@@ -141,6 +150,11 @@ pub fn html(allocator: std.mem.Allocator, input: []const u8, args: ?[]const u8) 
         }
 
         if (htmlIsWs(c)) {
+            if (preDepth > 0) {
+                try out.append(allocator, c);
+                i += 1;
+                continue;
+            }
             var j = i;
             while (j < n and htmlIsWs(input[j])) j += 1;
             const nextIsTag = j < n and input[j] == '<';
