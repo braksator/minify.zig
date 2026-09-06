@@ -6,21 +6,15 @@ Minifier for web output: HTML, CSS, JavaScript, and SVG.  **For use in Zig lang 
 
 ## Adding it to your project
 
-#1. Add **minify.zig** as a dependency in your *build.zig.zon*:
+#1. Add **minify.zig** as a dependency in your project:
 
-```
-.dependencies = .{
-    .@"minify.zig" = .{
-        .url = "https://github.com/braksator/minify.zig/archive/refs/tags/v0.1.0.tar.gz",
-        .hash = "0x6b92d368b8277922",
-    },
-},
-```
+`zig fetch --save https://github.com/braksator/minify.zig/archive/refs/tags/zig0.17-v0.2.tar.gz`
+
 
 #2. Then in your *build.zig* add the module:
 
 ```zig
-const mod = b.dependency("minify.zig", .{
+const mod = b.dependency("minify_zig", .{
     .target = target,
     .optimize = optimize,
 }).module("minify.zig");
