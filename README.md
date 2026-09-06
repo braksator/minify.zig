@@ -6,6 +6,8 @@ Minifier for web output: HTML, CSS, JavaScript, and SVG.  **For use in Zig lang 
 
 ## Adding it to your project
 
+**This project is written against the zig0.17-dev branch.  It will not compile on earlier versions.  That's just how it is for now.**
+
 #1. Add **minify.zig** as a dependency in your project:
 
 `zig fetch --save https://github.com/braksator/minify.zig/archive/refs/tags/v0.2.0.tar.gz`
