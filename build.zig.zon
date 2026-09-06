@@ -1,6 +1,6 @@
 .{
     .name = .minify_zig,
-    .version = "zig0.17-v0.2",
+    .version = "0.2.0",
     .fingerprint = 0x6b92d368b8277922,
     .minimum_zig_version = "0.17.0-dev.0",
     .paths = .{
